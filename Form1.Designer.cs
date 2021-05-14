@@ -35,13 +35,15 @@ namespace CourseWorkSort
             this.OpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.изменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AddRandomCountryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.InputCountryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отсортироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.gbxLog = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.rtbLog = new System.Windows.Forms.RichTextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.menuStrip1.SuspendLayout();
             this.gbxLog.SuspendLayout();
             this.SuspendLayout();
@@ -94,10 +96,26 @@ namespace CourseWorkSort
             // 
             // добавитьToolStripMenuItem
             // 
+            this.добавитьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AddRandomCountryToolStripMenuItem,
+            this.InputCountryToolStripMenuItem});
             this.добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
             this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
             this.добавитьToolStripMenuItem.Text = "Добавить..";
-            this.добавитьToolStripMenuItem.Click += new System.EventHandler(this.AddToolStripMenuItem_Click);
+            // 
+            // AddRandomCountryToolStripMenuItem
+            // 
+            this.AddRandomCountryToolStripMenuItem.Name = "AddRandomCountryToolStripMenuItem";
+            this.AddRandomCountryToolStripMenuItem.Size = new System.Drawing.Size(298, 32);
+            this.AddRandomCountryToolStripMenuItem.Text = "Случайным образом..";
+            this.AddRandomCountryToolStripMenuItem.Click += new System.EventHandler(this.AddRandomCountryToolStripMenuItem_Click);
+            // 
+            // InputCountryToolStripMenuItem
+            // 
+            this.InputCountryToolStripMenuItem.Name = "InputCountryToolStripMenuItem";
+            this.InputCountryToolStripMenuItem.Size = new System.Drawing.Size(298, 32);
+            this.InputCountryToolStripMenuItem.Text = "Через ввод..";
+            this.InputCountryToolStripMenuItem.Click += new System.EventHandler(this.InputCountryToolStripMenuItem_Click);
             // 
             // удалитьToolStripMenuItem
             // 
@@ -128,17 +146,6 @@ namespace CourseWorkSort
             this.gbxLog.TabStop = false;
             this.gbxLog.Text = "Журнал";
             // 
-            // groupBox2
-            // 
-            this.groupBox2.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox2.Location = new System.Drawing.Point(12, 39);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(926, 283);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Основные действия";
-            // 
             // rtbLog
             // 
             this.rtbLog.BackColor = System.Drawing.SystemColors.Control;
@@ -150,6 +157,17 @@ namespace CourseWorkSort
             this.rtbLog.TabIndex = 0;
             this.rtbLog.TabStop = false;
             this.rtbLog.Text = "Программа запущена.";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox2.Location = new System.Drawing.Point(12, 39);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(926, 283);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Основные действия";
             // 
             // Form1
             // 
@@ -186,6 +204,8 @@ namespace CourseWorkSort
         private System.Windows.Forms.GroupBox gbxLog;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RichTextBox rtbLog;
+        private System.Windows.Forms.ToolStripMenuItem AddRandomCountryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem InputCountryToolStripMenuItem;
     }
 }
 

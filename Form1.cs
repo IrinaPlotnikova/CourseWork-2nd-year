@@ -72,13 +72,14 @@ namespace CourseWorkSort
             }
         }
 
-     
-        // добавить элемент в файл
-        private void AddToolStripMenuItem_Click(object sender, EventArgs e)
+
+
+        // добавить страну в файл через ввод
+        private void InputCountryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (path == null)
             {
-                rtbLog.Text = "Невозможно выполнить добавление. Отсутствует открытый файл.\n" + 
+                rtbLog.Text = "Невозможно выполнить добавление. Отсутствует открытый файл.\n" +
                               rtbLog.Text;
             }
             else
@@ -87,14 +88,14 @@ namespace CourseWorkSort
                 Hide();
                 form.ShowDialog();
                 Show();
-                
+
                 if (form.DialogResult == DialogResult.Cancel)
                 {
                     rtbLog.Text = "Отмена добавления страны.\n" + rtbLog.Text;
                 }
                 else
                 {
-                    StreamWriter writer = new StreamWriter(path);
+                    StreamWriter writer = new StreamWriter(path, true);
                     writer.WriteLine(form.Input);
                     writer.Close();
                     rtbLog.Text = "Страна добавлена.\n" + rtbLog.Text;
@@ -102,6 +103,41 @@ namespace CourseWorkSort
             }
         }
 
-    
+
+        // добавление случайных стран в файл
+        private void AddRandomCountryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (path == null)
+            {
+                rtbLog.Text = "Невозможно выполнить добавление. Отсутствует открытый файл.\n" +
+                              rtbLog.Text;
+            }
+            else
+            {
+                FormAddRandomCountry form = new FormAddRandomCountry();
+                Hide();
+                form.ShowDialog();
+                Show();
+
+                if (form.DialogResult == DialogResult.Cancel)
+                {
+                    rtbLog.Text = "Отмена добавления страны.\n" + rtbLog.Text;
+                }
+                else
+                {
+                    StreamWriter writer = new StreamWriter(path, true);
+                    int amount = form.Input;
+                    for (int i = 0; i < amount; i++)
+                    {
+                        Country country = new Country();
+                        country.Generate();
+                        writer.WriteLine(country);
+                    }
+                    writer.Close();
+                    rtbLog.Text = "Случайные страны добавлены (" + amount.ToString() + 
+                        " шт.)\n" + rtbLog.Text;
+                }
+            }
+        }
     }
 }
