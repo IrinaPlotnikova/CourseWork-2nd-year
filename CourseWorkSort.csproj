@@ -53,6 +53,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormInputCountry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormInputCountry.Designer.cs">
+      <DependentUpon>FormInputCountry.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormInputFileName.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +70,9 @@
     <Compile Include="Sequence.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormInputCountry.resx">
+      <DependentUpon>FormInputCountry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormInputFileName.resx">
       <DependentUpon>FormInputFileName.cs</DependentUpon>

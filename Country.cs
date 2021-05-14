@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace CourseWorkSort
 {
-    class Country : IComparable
+    public class Country : IComparable
     {
         private string name;       // название страны 
         private string capital;    // название столицы
         private string continent;  // название континента
         private int area;          // площадь в км^2
-        private int population;    // численность 
+        private int population;    // численность в тыс (с округлением к целому)
         private static readonly Random rnd = new Random();
       
 
@@ -27,6 +27,17 @@ namespace CourseWorkSort
             area = Convert.ToInt32(info[2]);
             population = Convert.ToInt32(info[3]);
             continent = info[4];
+        }
+
+
+        // конструктор
+        public Country()
+        {
+            name = null;
+            capital = null;
+            area = 0;
+            population = 0;
+            continent = null;
         }
 
 
@@ -82,7 +93,7 @@ namespace CourseWorkSort
             name = GenerateRandomString(5, 10);
             capital = GenerateRandomString(4, 10);
             area = rnd.Next(18000000) + 10;
-            population = rnd.Next(400000000) + 10;
+            population = rnd.Next(2000000000) + 10;
             continent = GetRandomContinent();
         }
 
@@ -107,8 +118,9 @@ namespace CourseWorkSort
         // возвращает случайный континент
         private string GetRandomContinent()
         { 
-            string[] continents = new string[] { "", "", "", "", "" };
-            return continents[rnd.Next(5)];
+            string[] continents = new string[] { "Евразия", "Африка", "Австралия",
+                "Антарктида", "Северная_Америка", "Южная_Америка" };
+            return continents[rnd.Next(6)];
         }
 
 
@@ -120,9 +132,21 @@ namespace CourseWorkSort
 
             int length = minLength + rnd.Next(maxLength - minLength + 1);
             string result = "";
-            result += 'A' + rnd.Next(26);  
+
+            int k = rnd.Next(33);
+            if (k == 32)
+                result = "Ё";
+            else
+                result += (char)('А' + k);
+
             for (int i = 1; i < length; i++)
-                result += 'a' + rnd.Next(26);
+            {
+                k = rnd.Next(33);
+                if (k == 32)
+                    result = "ё";
+                else
+                    result += (char)('а' + k);
+            }
             return result;
         }
     }

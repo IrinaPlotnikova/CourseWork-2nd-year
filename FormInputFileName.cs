@@ -42,8 +42,8 @@ namespace CourseWorkSort
             }
             else // если имя файла не пусто
             {
-                Input = filename;
-                DialogResult = DialogResult.Yes;
+                Input = filename + ".txt";
+                DialogResult = DialogResult.OK;
                 Close();
             }
         }
