@@ -15,24 +15,34 @@ namespace CourseWorkSort
         public FormInputFileName()
         {
             InitializeComponent();
+            DialogResult = DialogResult.Cancel;
+            Input = "";
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
+        public string Input { get; private set; }
 
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        private void tbxFilename_KeyPress(object sender, KeyPressEventArgs e)
         {
             string forbiddenSymbols = "\\/:*?\"<>|";
-            e.Handled = forbiddenSymbols.Contains(e.KeyChar) || 
-                        textBox1.Text == "" && e.KeyChar == ' ' || 
-                        textBox1.Text.Length == 31 && e.KeyChar != (char)Keys.Back;
+            e.Handled = forbiddenSymbols.Contains(e.KeyChar) ||
+                        tbxFilename.Text == "" && e.KeyChar == ' ' ||
+                        tbxFilename.Text.Length == 31 && e.KeyChar != (char)Keys.Back;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnOk_Click(object sender, EventArgs e)
         {
-
+            string filename = tbxFilename.Text.TrimEnd();
+            if (filename == "")
+            {
+                MessageBox.Show("Название файла не должно быть пустой строкой.",
+                                "Некорректный ввод", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                Input = filename;
+                DialogResult = DialogResult.Yes;
+                Close();
+            }
         }
     }
 }
