@@ -1,0 +1,11 @@
+D:\ВГУ 2\Курсовые\2 курс, Внешняя сортировка\CourseWorkSort\bin\Debug\CourseWorkSort.exe.config
+D:\ВГУ 2\Курсовые\2 курс, Внешняя сортировка\CourseWorkSort\bin\Debug\CourseWorkSort.exe
+D:\ВГУ 2\Курсовые\2 курс, Внешняя сортировка\CourseWorkSort\bin\Debug\CourseWorkSort.pdb
+D:\ВГУ 2\Курсовые\2 курс, Внешняя сортировка\CourseWorkSort\obj\Debug\CourseWorkSort.csprojAssemblyReference.cache
+D:\ВГУ 2\Курсовые\2 курс, Внешняя сортировка\CourseWorkSort\obj\Debug\CourseWorkSort.Form1.resources
+D:\ВГУ 2\Курсовые\2 курс, Внешняя сортировка\CourseWorkSort\obj\Debug\CourseWorkSort.FormInputFileName.resources
+D:\ВГУ 2\Курсовые\2 курс, Внешняя сортировка\CourseWorkSort\obj\Debug\CourseWorkSort.Properties.Resources.resources
+D:\ВГУ 2\Курсовые\2 курс, Внешняя сортировка\CourseWorkSort\obj\Debug\CourseWorkSort.csproj.GenerateResource.cache
+D:\ВГУ 2\Курсовые\2 курс, Внешняя сортировка\CourseWorkSort\obj\Debug\CourseWorkSort.csproj.CoreCompileInputs.cache
+D:\ВГУ 2\Курсовые\2 курс, Внешняя сортировка\CourseWorkSort\obj\Debug\CourseWorkSort.exe
+D:\ВГУ 2\Курсовые\2 курс, Внешняя сортировка\CourseWorkSort\obj\Debug\CourseWorkSort.pdb
