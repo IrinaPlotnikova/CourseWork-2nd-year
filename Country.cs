@@ -135,7 +135,7 @@ namespace CourseWorkSort
 
             int k = rnd.Next(33);
             if (k == 32)
-                result = "Ё";
+                result += "Ё";
             else
                 result += (char)('А' + k);
 
@@ -143,7 +143,7 @@ namespace CourseWorkSort
             {
                 k = rnd.Next(33);
                 if (k == 32)
-                    result = "ё";
+                    result += "ё";
                 else
                     result += (char)('а' + k);
             }

@@ -11,3 +11,4 @@ D:\ВГУ 2\Курсовые\2 курс, Внешняя сортировка\Cou
 D:\ВГУ 2\Курсовые\2 курс, Внешняя сортировка\CourseWorkSort\obj\Debug\CourseWorkSort.pdb
 D:\ВГУ 2\Курсовые\2 курс, Внешняя сортировка\CourseWorkSort\obj\Debug\CourseWorkSort.FormInputCountry.resources
 D:\ВГУ 2\Курсовые\2 курс, Внешняя сортировка\CourseWorkSort\obj\Debug\CourseWorkSort.FormAddRandomCountry.resources
+D:\ВГУ 2\Курсовые\2 курс, Внешняя сортировка\CourseWorkSort\obj\Debug\CourseWorkSort.FormRemoveCountry.resources

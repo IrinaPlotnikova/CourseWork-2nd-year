@@ -15,12 +15,14 @@ namespace CourseWorkSort
     {
         private string initialDirectory = "D:\\ВГУ 2\\Курсовые\\2 курс, Внешняя сортировка\\CourseWorkSort\\Files";
         private string path;
+        int numberOfCountries;
         public Form1()
         {
             InitializeComponent();
 
-            openFileDialog1.InitialDirectory = "D:\\ВГУ 2\\Курсовые\\2 курс, Внешняя сортировка\\CourseWorkSort\\Files";
+            openFileDialog1.InitialDirectory = initialDirectory;
             openFileDialog1.Filter = "txt files (*.txt)|*.txt";
+            path = null;
         }
 
 
@@ -41,15 +43,15 @@ namespace CourseWorkSort
             form.ShowDialog();
             Show();
 
-            string path = form.Input;
+            string newPath = initialDirectory + '\\' + form.Input;
             // если создание подверждено и файла с таким названием нет 
             // или подтверждена перезапись
             if (form.DialogResult == DialogResult.OK && (!File.Exists(path) ||
-                IsConfirm("Файл \"" + path + "\" существует. Перезаписать?")))
+                IsConfirm("Файл \"" + newPath + "\" существует. Перезаписать?")))
             {
-                FileStream file = File.Create(initialDirectory + '\\' + path);
+                FileStream file = File.Create(path);
                 file.Close();
-                rtbLog.Text = "Файл \"" + path + "\" создан.\n" + rtbLog.Text;
+                rtbLog.Text = "Файл \"" + newPath + "\" создан.\n" + rtbLog.Text;
             }
             else // если отменено создание или перезапись
             {
@@ -65,6 +67,11 @@ namespace CourseWorkSort
             {
                 path = openFileDialog1.FileName;
                 rtbLog.Text = "Файл \"" + path + "\" открыт.\n" + rtbLog.Text;
+                StreamReader reader = new StreamReader(path);
+                numberOfCountries = 0;
+                while (reader.ReadLine() != null)
+                    numberOfCountries++;
+                reader.Close();
             }
             else
             {
@@ -98,6 +105,7 @@ namespace CourseWorkSort
                     StreamWriter writer = new StreamWriter(path, true);
                     writer.WriteLine(form.Input);
                     writer.Close();
+                    numberOfCountries++;
                     rtbLog.Text = "Страна добавлена.\n" + rtbLog.Text;
                 }
             }
@@ -125,8 +133,10 @@ namespace CourseWorkSort
                 }
                 else
                 {
-                    StreamWriter writer = new StreamWriter(path, true);
                     int amount = form.Input;
+                    numberOfCountries += amount;
+
+                    StreamWriter writer = new StreamWriter(path, true);
                     for (int i = 0; i < amount; i++)
                     {
                         Country country = new Country();
@@ -134,8 +144,64 @@ namespace CourseWorkSort
                         writer.WriteLine(country);
                     }
                     writer.Close();
+
                     rtbLog.Text = "Случайные страны добавлены (" + amount.ToString() + 
                         " шт.)\n" + rtbLog.Text;
+                }
+            }
+        }
+
+
+        // удаление страны из файла по индексу
+        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (path == null)
+            {
+                rtbLog.Text = "Невозможно выполнить удаление. Отсутствует открытый файл.\n" +
+                              rtbLog.Text;
+            }
+            else if (numberOfCountries == 0)
+            {
+                rtbLog.Text = "Невозможно выполнить удаление. Файл пуст.\n" + rtbLog.Text;
+            }
+            else
+            {
+                FormRemoveCountry form = new FormRemoveCountry(numberOfCountries);
+                Hide();
+                form.ShowDialog();
+                Show();
+
+                if (form.DialogResult == DialogResult.Cancel)
+                {
+                    rtbLog.Text = "Отмена удаления страны.\n" + rtbLog.Text;
+                }
+                else
+                {
+                    numberOfCountries--;
+
+                    string tmpFilename = initialDirectory + "\\tmp";
+                    StreamWriter writer = new StreamWriter(tmpFilename);
+                    StreamReader reader = new StreamReader(path);
+                    int index = form.Input - 1;
+
+                    for (int i = 0; i < index; i++)
+                    {
+                        writer.WriteLine(reader.ReadLine());
+                    }
+                    reader.ReadLine(); // пропуск удаляемой страны
+                    for (int i = index + 1; i < numberOfCountries; i++)
+                    {
+                        writer.WriteLine(reader.ReadLine());
+                    }
+
+                    reader.Close();
+                    writer.Close();
+
+                    File.Copy(tmpFilename, path, true);
+                    File.Delete(tmpFilename);
+                    
+                    rtbLog.Text = "Страна с индексом " + form.Input.ToString() +
+                                  " удалена.\n" + rtbLog.Text;
                 }
             }
         }

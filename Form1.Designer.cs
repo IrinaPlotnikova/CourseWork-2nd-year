@@ -122,6 +122,7 @@ namespace CourseWorkSort
             this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
             this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
             this.удалитьToolStripMenuItem.Text = "Удалить..";
+            this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
             // отсортироватьToolStripMenuItem
             // 
