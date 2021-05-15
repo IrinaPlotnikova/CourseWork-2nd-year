@@ -74,14 +74,14 @@ namespace CourseWorkSort
             // CreateToolStripMenuItem
             // 
             this.CreateToolStripMenuItem.Name = "CreateToolStripMenuItem";
-            this.CreateToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
+            this.CreateToolStripMenuItem.Size = new System.Drawing.Size(188, 32);
             this.CreateToolStripMenuItem.Text = "Создать..";
             this.CreateToolStripMenuItem.Click += new System.EventHandler(this.CreateToolStripMenuItem_Click);
             // 
             // OpenToolStripMenuItem
             // 
             this.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem";
-            this.OpenToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
+            this.OpenToolStripMenuItem.Size = new System.Drawing.Size(188, 32);
             this.OpenToolStripMenuItem.Text = "Открыть..";
             this.OpenToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
@@ -91,7 +91,7 @@ namespace CourseWorkSort
             this.добавитьToolStripMenuItem,
             this.удалитьToolStripMenuItem});
             this.изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
-            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
+            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(188, 32);
             this.изменитьToolStripMenuItem.Text = "Изменить";
             // 
             // добавитьToolStripMenuItem
@@ -100,7 +100,7 @@ namespace CourseWorkSort
             this.AddRandomCountryToolStripMenuItem,
             this.InputCountryToolStripMenuItem});
             this.добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
-            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
+            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(195, 32);
             this.добавитьToolStripMenuItem.Text = "Добавить..";
             // 
             // AddRandomCountryToolStripMenuItem
@@ -120,7 +120,7 @@ namespace CourseWorkSort
             // удалитьToolStripMenuItem
             // 
             this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(195, 32);
             this.удалитьToolStripMenuItem.Text = "Удалить..";
             this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
@@ -178,6 +178,7 @@ namespace CourseWorkSort
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.gbxLog);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

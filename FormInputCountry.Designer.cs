@@ -39,9 +39,9 @@ namespace CourseWorkSort
             this.TbxArea = new System.Windows.Forms.TextBox();
             this.TbxPopulation = new System.Windows.Forms.TextBox();
             this.pnlCountry = new System.Windows.Forms.Panel();
+            this.dudContinent = new System.Windows.Forms.DomainUpDown();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
-            this.dudContinent = new System.Windows.Forms.DomainUpDown();
             this.pnlCountry.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -150,6 +150,23 @@ namespace CourseWorkSort
             this.pnlCountry.Size = new System.Drawing.Size(536, 270);
             this.pnlCountry.TabIndex = 0;
             // 
+            // dudContinent
+            // 
+            this.dudContinent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dudContinent.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dudContinent.Items.Add("Австралия");
+            this.dudContinent.Items.Add("Антарктида");
+            this.dudContinent.Items.Add("Африка");
+            this.dudContinent.Items.Add("Евразия");
+            this.dudContinent.Items.Add("Северная_Америка");
+            this.dudContinent.Items.Add("Южная_Америка");
+            this.dudContinent.Location = new System.Drawing.Point(144, 225);
+            this.dudContinent.Name = "dudContinent";
+            this.dudContinent.ReadOnly = true;
+            this.dudContinent.Size = new System.Drawing.Size(370, 30);
+            this.dudContinent.TabIndex = 6;
+            this.dudContinent.Wrap = true;
+            // 
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -172,23 +189,6 @@ namespace CourseWorkSort
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
-            // dudContinent
-            // 
-            this.dudContinent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dudContinent.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dudContinent.Items.Add("Австралия");
-            this.dudContinent.Items.Add("Антарктида");
-            this.dudContinent.Items.Add("Африка");
-            this.dudContinent.Items.Add("Евразия");
-            this.dudContinent.Items.Add("Северная_Америка");
-            this.dudContinent.Items.Add("Южная_Америка");
-            this.dudContinent.Location = new System.Drawing.Point(144, 225);
-            this.dudContinent.Name = "dudContinent";
-            this.dudContinent.ReadOnly = true;
-            this.dudContinent.Size = new System.Drawing.Size(370, 30);
-            this.dudContinent.TabIndex = 6;
-            this.dudContinent.Wrap = true;
-            // 
             // FormInputCountry
             // 
             this.AcceptButton = this.btnOk;
@@ -199,6 +199,7 @@ namespace CourseWorkSort
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.pnlCountry);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FormInputCountry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ввод информации о стране";

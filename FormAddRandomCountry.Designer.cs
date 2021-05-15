@@ -98,9 +98,10 @@ namespace CourseWorkSort
             this.Controls.Add(this.pnlAmount);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FormAddRandomCountry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Ввод случайных стран";
+            this.Text = "Ввод количества случайных стран";
             this.pnlAmount.ResumeLayout(false);
             this.pnlAmount.PerformLayout();
             this.ResumeLayout(false);
