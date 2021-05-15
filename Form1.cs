@@ -46,10 +46,10 @@ namespace CourseWorkSort
             string newPath = initialDirectory + '\\' + form.Input;
             // если создание подверждено и файла с таким названием нет 
             // или подтверждена перезапись
-            if (form.DialogResult == DialogResult.OK && (!File.Exists(path) ||
+            if (form.DialogResult == DialogResult.OK && (!File.Exists(newPath) ||
                 IsConfirm("Файл \"" + newPath + "\" существует. Перезаписать?")))
             {
-                FileStream file = File.Create(path);
+                FileStream file = File.Create(newPath);
                 file.Close();
                 rtbLog.Text = "Файл \"" + newPath + "\" создан.\n" + rtbLog.Text;
             }
@@ -202,6 +202,36 @@ namespace CourseWorkSort
                     
                     rtbLog.Text = "Страна с индексом " + form.Input.ToString() +
                                   " удалена.\n" + rtbLog.Text;
+                }
+            }
+        }
+
+        // нажание на кнопку меню "Отсортировать"
+        private void SortToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (path == null)
+            {
+                rtbLog.Text = "Невозможно выполнить сортировку. Отсутствует открытый файл.\n" +
+                              rtbLog.Text;
+            }
+            else
+            {
+                int first = path.LastIndexOf('\\');
+                int last = path.LastIndexOf('.') - 1;
+                string input = path.Substring(first, last - first + 1);
+                FormInputSortInformation form = new FormInputSortInformation(input);
+                form.ShowDialog();
+
+                string outputPath = form.OutputFilename;
+
+                if (form.DialogResult == DialogResult.OK && (!File.Exists(outputPath) ||
+                    IsConfirm("Файл \"" + outputPath + "\" существует. Перезаписать?")))
+                {
+                    // сортировка
+                }
+                else
+                {
+                    rtbLog.Text = "Отмена сортировка.\n" + rtbLog.Text;
                 }
             }
         }

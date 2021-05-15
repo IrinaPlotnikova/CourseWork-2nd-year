@@ -38,7 +38,7 @@ namespace CourseWorkSort
             this.AddRandomCountryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.InputCountryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.отсортироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.gbxLog = new System.Windows.Forms.GroupBox();
@@ -53,7 +53,7 @@ namespace CourseWorkSort
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem,
-            this.отсортироватьToolStripMenuItem});
+            this.SortToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(950, 36);
@@ -124,12 +124,13 @@ namespace CourseWorkSort
             this.удалитьToolStripMenuItem.Text = "Удалить..";
             this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
-            // отсортироватьToolStripMenuItem
+            // SortToolStripMenuItem
             // 
-            this.отсортироватьToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.отсортироватьToolStripMenuItem.Name = "отсортироватьToolStripMenuItem";
-            this.отсортироватьToolStripMenuItem.Size = new System.Drawing.Size(165, 32);
-            this.отсортироватьToolStripMenuItem.Text = "Отсортировать";
+            this.SortToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.SortToolStripMenuItem.Name = "SortToolStripMenuItem";
+            this.SortToolStripMenuItem.Size = new System.Drawing.Size(165, 32);
+            this.SortToolStripMenuItem.Text = "Отсортировать";
+            this.SortToolStripMenuItem.Click += new System.EventHandler(this.SortToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
@@ -197,7 +198,7 @@ namespace CourseWorkSort
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem CreateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem OpenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem отсортироватьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SortToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem изменитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem добавитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
