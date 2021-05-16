@@ -13,65 +13,88 @@ namespace CourseWorkSort
         public bool EOF { get; private set; }
         // достигнут ли конец серии последовательности для чтения
         public bool EOS { get; private set; }  
-        private Country lastElement;  // крайний элемент в последовательности для чтения
+        public Country LastElement { get; private set; }  // крайний элемент в последовательности для чтения
         private StreamReader reader;  // последовательность для чтения
         private StreamWriter writer;  // последовательность для записи
+        private string filename;
+        public string Filename 
+        {
+            get => filename;
+            set 
+            {
+                CloseRead();
+                CloseWrite();
+                filename = value;
+            } 
+        }
 
         // конструктор
         public Sequence()
         {
             EOF = false;
             EOS = false;
-            lastElement = null;
+            LastElement = null;
             reader = null;
             writer = null;
+            filename = null;
         }
 
         // открывает последовательность для чтения, 
         // считывает первый элемент
         // возвращает true, если последовательности не пуста, иначе — false
         // filename — корректный файл, содержащий последовательность
-        public bool StartRead(string filename)
+        public bool StartRead()
         {
-            CloseRead(); // закрыть послетовательность для чтения, если она открыта
+            if (reader != null || writer != null || filename == null)
+                return false;
+
             reader = new StreamReader(filename);
             string info = reader.ReadLine();
             if (info != null)
-                lastElement = new Country(info);
-            EOF = lastElement != null;
+                LastElement = new Country(info);
+            EOF = LastElement != null;
             EOS = EOF;
-            return EOF;
+            return true;
         }
 
         // считывание следующего элемента в последовательности
-        public void NextRead()
+        public bool NextRead()
         {
-            if (reader != null)
+            if (reader == null)
+                return false;
+            string info = reader.ReadLine();
+            if (info != null)
             {
-                
-                string info = reader.ReadLine();
-                if (info != null)
-                {
-                    Country tmp = lastElement;
-                    lastElement = new Country(info);
-                    EOS = tmp != null && tmp.CompareTo(lastElement) > 0; 
-                }
-                else
-                {
-                    lastElement = null;
-                    EOF = true;
-                    EOS = true;
-                }
+                Country tmp = LastElement;
+                LastElement = new Country(info);
+                EOS = tmp != null && tmp.CompareTo(LastElement) > 0; 
             }
+            else
+            {
+                LastElement = null;
+                EOF = true;
+                EOS = true;
+            }
+            return true;
         }
 
 
         // открывает последовательность для записи,
         // filename — файл, в который будет записана последовательность
-        public void StartWrite(string filename)
+        public bool StartWrite()
         {
-            CloseWrite(); // закрыть послетовательность для записи, если она открыта
+            if (reader != null || writer != null || filename == null)
+                return false;
             writer = new StreamWriter(filename);
+            return true;
+        }
+
+        public bool Write(Country value)
+        {
+            if (writer == null)
+                return false;
+            writer.WriteLine(value);
+            return true;
         }
 
 
@@ -84,7 +107,7 @@ namespace CourseWorkSort
                 EOF = false;
                 EOS = false;
                 reader = null;
-                lastElement = null;
+                LastElement = null;
             }
         }
 
@@ -96,7 +119,7 @@ namespace CourseWorkSort
             {
                 writer.Close();
                 writer = null;
-                lastElement = null;
+                LastElement = null;
             }
         }
 
