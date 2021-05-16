@@ -93,6 +93,7 @@ namespace CourseWorkSort
         {
             if (writer == null)
                 return false;
+            LastElement = value;
             writer.WriteLine(value);
             return true;
         }
