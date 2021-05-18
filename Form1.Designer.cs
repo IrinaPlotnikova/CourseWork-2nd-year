@@ -33,11 +33,11 @@ namespace CourseWorkSort
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CreateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.изменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ChangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AddRandomCountryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.InputCountryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -65,7 +65,7 @@ namespace CourseWorkSort
             this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CreateToolStripMenuItem,
             this.OpenToolStripMenuItem,
-            this.изменитьToolStripMenuItem});
+            this.ChangeToolStripMenuItem});
             this.файлToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             this.файлToolStripMenuItem.Size = new System.Drawing.Size(74, 32);
@@ -74,25 +74,26 @@ namespace CourseWorkSort
             // CreateToolStripMenuItem
             // 
             this.CreateToolStripMenuItem.Name = "CreateToolStripMenuItem";
-            this.CreateToolStripMenuItem.Size = new System.Drawing.Size(188, 32);
+            this.CreateToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
             this.CreateToolStripMenuItem.Text = "Создать..";
             this.CreateToolStripMenuItem.Click += new System.EventHandler(this.CreateToolStripMenuItem_Click);
             // 
             // OpenToolStripMenuItem
             // 
             this.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem";
-            this.OpenToolStripMenuItem.Size = new System.Drawing.Size(188, 32);
+            this.OpenToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
             this.OpenToolStripMenuItem.Text = "Открыть..";
             this.OpenToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
-            // изменитьToolStripMenuItem
+            // ChangeToolStripMenuItem
             // 
-            this.изменитьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ChangeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.добавитьToolStripMenuItem,
-            this.удалитьToolStripMenuItem});
-            this.изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
-            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(188, 32);
-            this.изменитьToolStripMenuItem.Text = "Изменить";
+            this.DeleteToolStripMenuItem});
+            this.ChangeToolStripMenuItem.Enabled = false;
+            this.ChangeToolStripMenuItem.Name = "ChangeToolStripMenuItem";
+            this.ChangeToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
+            this.ChangeToolStripMenuItem.Text = "Изменить";
             // 
             // добавитьToolStripMenuItem
             // 
@@ -100,7 +101,7 @@ namespace CourseWorkSort
             this.AddRandomCountryToolStripMenuItem,
             this.InputCountryToolStripMenuItem});
             this.добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
-            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(195, 32);
+            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
             this.добавитьToolStripMenuItem.Text = "Добавить..";
             // 
             // AddRandomCountryToolStripMenuItem
@@ -117,15 +118,16 @@ namespace CourseWorkSort
             this.InputCountryToolStripMenuItem.Text = "Через ввод..";
             this.InputCountryToolStripMenuItem.Click += new System.EventHandler(this.InputCountryToolStripMenuItem_Click);
             // 
-            // удалитьToolStripMenuItem
+            // DeleteToolStripMenuItem
             // 
-            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(195, 32);
-            this.удалитьToolStripMenuItem.Text = "Удалить..";
-            this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
+            this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
+            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
+            this.DeleteToolStripMenuItem.Text = "Удалить..";
+            this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
             // SortToolStripMenuItem
             // 
+            this.SortToolStripMenuItem.Enabled = false;
             this.SortToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.SortToolStripMenuItem.Name = "SortToolStripMenuItem";
             this.SortToolStripMenuItem.Size = new System.Drawing.Size(165, 32);
@@ -199,9 +201,9 @@ namespace CourseWorkSort
         private System.Windows.Forms.ToolStripMenuItem CreateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem OpenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SortToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem изменитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ChangeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem добавитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem DeleteToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.GroupBox gbxLog;

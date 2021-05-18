@@ -71,6 +71,8 @@ namespace CourseWorkSort
                 numberOfCountries = 0;
                 while (reader.ReadLine() != null)
                     numberOfCountries++;
+                SortToolStripMenuItem.Enabled = true;
+                ChangeToolStripMenuItem.Enabled = true;
                 reader.Close();
             }
             else
@@ -115,52 +117,39 @@ namespace CourseWorkSort
         // добавление случайных стран в файл
         private void AddRandomCountryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (path == null)
+            FormAddRandomCountry form = new FormAddRandomCountry();
+            Hide();
+            form.ShowDialog();
+            Show();
+
+            if (form.DialogResult == DialogResult.Cancel)
             {
-                rtbLog.Text = "Невозможно выполнить добавление. Отсутствует открытый файл.\n" +
-                              rtbLog.Text;
+                rtbLog.Text = "Отмена добавления страны.\n" + rtbLog.Text;
             }
             else
             {
-                FormAddRandomCountry form = new FormAddRandomCountry();
-                Hide();
-                form.ShowDialog();
-                Show();
+                int amount = form.Input;
+                numberOfCountries += amount;
 
-                if (form.DialogResult == DialogResult.Cancel)
+                StreamWriter writer = new StreamWriter(path, true);
+                for (int i = 0; i < amount; i++)
                 {
-                    rtbLog.Text = "Отмена добавления страны.\n" + rtbLog.Text;
+                    Country country = new Country();
+                    country.Generate();
+                    writer.WriteLine(country);
                 }
-                else
-                {
-                    int amount = form.Input;
-                    numberOfCountries += amount;
+                writer.Close();
 
-                    StreamWriter writer = new StreamWriter(path, true);
-                    for (int i = 0; i < amount; i++)
-                    {
-                        Country country = new Country();
-                        country.Generate();
-                        writer.WriteLine(country);
-                    }
-                    writer.Close();
-
-                    rtbLog.Text = "Случайные страны добавлены (" + amount.ToString() + 
-                        " шт.)\n" + rtbLog.Text;
-                }
+                rtbLog.Text = "Случайные страны добавлены (" + amount.ToString() + 
+                    " шт.)\n" + rtbLog.Text;
             }
         }
 
 
         // удаление страны из файла по индексу
-        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (path == null)
-            {
-                rtbLog.Text = "Невозможно выполнить удаление. Отсутствует открытый файл.\n" +
-                              rtbLog.Text;
-            }
-            else if (numberOfCountries == 0)
+            if (numberOfCountries == 0)
             {
                 rtbLog.Text = "Невозможно выполнить удаление. Файл пуст.\n" + rtbLog.Text;
             }
@@ -209,31 +198,24 @@ namespace CourseWorkSort
         // нажание на кнопку меню "Отсортировать"
         private void SortToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (path == null)
+            int first = path.LastIndexOf('\\');
+            int last = path.LastIndexOf('.') - 1;
+            string input = path.Substring(first, last - first + 1);
+            FormInputSortInformation form = new FormInputSortInformation(input);
+            form.ShowDialog();
+
+            string outputPath = form.OutputFilename;
+            if (form.DialogResult == DialogResult.OK && (!File.Exists(outputPath) ||
+                IsConfirm("Файл \"" + outputPath + "\" существует. Перезаписать?")))
             {
-                rtbLog.Text = "Невозможно выполнить сортировку. Отсутствует открытый файл.\n" +
-                              rtbLog.Text;
+                // сортировка
+                rtbLog.Text = "Файл отсортирован и сохранён.\n" + rtbLog.Text;
             }
             else
             {
-                int first = path.LastIndexOf('\\');
-                int last = path.LastIndexOf('.') - 1;
-                string input = path.Substring(first, last - first + 1);
-                FormInputSortInformation form = new FormInputSortInformation(input);
-                form.ShowDialog();
-
-                string outputPath = form.OutputFilename;
-
-                if (form.DialogResult == DialogResult.OK && (!File.Exists(outputPath) ||
-                    IsConfirm("Файл \"" + outputPath + "\" существует. Перезаписать?")))
-                {
-                    // сортировка
-                }
-                else
-                {
-                    rtbLog.Text = "Отмена сортировка.\n" + rtbLog.Text;
-                }
+                rtbLog.Text = "Отмена сортировка.\n" + rtbLog.Text;
             }
         }
+
     }
 }

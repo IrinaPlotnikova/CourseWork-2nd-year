@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Country.cs" />
+    <Compile Include="ExternalSorting.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +72,12 @@
     <Compile Include="FormInputFileName.Designer.cs">
       <DependentUpon>FormInputFileName.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormInputSortInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormInputSortInformation.Designer.cs">
+      <DependentUpon>FormInputSortInformation.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormRemoveCountry.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormInputFileName.resx">
       <DependentUpon>FormInputFileName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormInputSortInformation.resx">
+      <DependentUpon>FormInputSortInformation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormRemoveCountry.resx">
       <DependentUpon>FormRemoveCountry.cs</DependentUpon>
