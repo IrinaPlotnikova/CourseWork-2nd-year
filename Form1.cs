@@ -198,7 +198,7 @@ namespace CourseWorkSort
         // нажание на кнопку меню "Отсортировать"
         private void SortToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int first = path.LastIndexOf('\\');
+            int first = path.LastIndexOf('\\') + 1;
             int last = path.LastIndexOf('.') - 1;
             string input = path.Substring(first, last - first + 1);
             FormInputSortInformation form = new FormInputSortInformation(input);

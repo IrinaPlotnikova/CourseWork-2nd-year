@@ -19,10 +19,12 @@ namespace CourseWorkSort
             DialogResult = DialogResult.Cancel;
             TbxInput.Text = input;
             TbxInput.ReadOnly = true;
+            CbxSortType.SelectedIndex = 0;
         }
 
         public string OutputFilename { get; private set; }
-        public int NumberOfFiles { get; private set; }
+        public int NumberOfWays { get; private set; }
+        public bool IsBalanced { get; private set; }
  
 
         // подтверждение ввода информации для сортировки 
@@ -37,7 +39,8 @@ namespace CourseWorkSort
             else // если имя файла не пусто
             {
                 OutputFilename = output + ".txt";
-                NumberOfFiles = Convert.ToInt32(NudWays.Value); 
+                NumberOfWays = Convert.ToInt32(NudWays.Value);
+                IsBalanced = CbxSortType.SelectedIndex == 0;
                 DialogResult = DialogResult.OK;
                 Close();
             }
