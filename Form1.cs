@@ -13,16 +13,17 @@ namespace CourseWorkSort
 {
     public partial class Form1 : Form
     {
-        private string initialDirectory = "D:\\ВГУ 2\\Курсовые\\2 курс, Внешняя сортировка\\CourseWorkSort\\Files";
-        private string path;
+        private string InitialDirectory = "D:\\ВГУ 2\\Курсовые\\2 курс, Внешняя сортировка\\CourseWorkSort\\Files";
+        private string Path;
         int numberOfCountries;
         public Form1()
         {
             InitializeComponent();
 
-            openFileDialog1.InitialDirectory = initialDirectory;
+            openFileDialog1.InitialDirectory = InitialDirectory;
             openFileDialog1.Filter = "txt files (*.txt)|*.txt";
-            path = null;
+            Path = null;
+            numberOfCountries = 0;
         }
 
 
@@ -43,7 +44,7 @@ namespace CourseWorkSort
             form.ShowDialog();
             Show();
 
-            string newPath = initialDirectory + '\\' + form.Input;
+            string newPath = InitialDirectory + '\\' + form.Input;
             // если создание подверждено и файла с таким названием нет 
             // или подтверждена перезапись
             if (form.DialogResult == DialogResult.OK && (!File.Exists(newPath) ||
@@ -65,9 +66,9 @@ namespace CourseWorkSort
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                path = openFileDialog1.FileName;
-                rtbLog.Text = "Файл \"" + path + "\" открыт.\n" + rtbLog.Text;
-                StreamReader reader = new StreamReader(path);
+                Path = openFileDialog1.FileName;
+                rtbLog.Text = "Файл \"" + Path + "\" открыт.\n" + rtbLog.Text;
+                StreamReader reader = new StreamReader(Path);
                 numberOfCountries = 0;
                 while (reader.ReadLine() != null)
                     numberOfCountries++;
@@ -86,30 +87,22 @@ namespace CourseWorkSort
         // добавить страну в файл через ввод
         private void InputCountryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (path == null)
+            FormInputCountry form = new FormInputCountry();
+            Hide();
+            form.ShowDialog();
+            Show();
+
+            if (form.DialogResult == DialogResult.Cancel)
             {
-                rtbLog.Text = "Невозможно выполнить добавление. Отсутствует открытый файл.\n" +
-                              rtbLog.Text;
+                rtbLog.Text = "Отмена добавления страны.\n" + rtbLog.Text;
             }
             else
             {
-                FormInputCountry form = new FormInputCountry();
-                Hide();
-                form.ShowDialog();
-                Show();
-
-                if (form.DialogResult == DialogResult.Cancel)
-                {
-                    rtbLog.Text = "Отмена добавления страны.\n" + rtbLog.Text;
-                }
-                else
-                {
-                    StreamWriter writer = new StreamWriter(path, true);
-                    writer.WriteLine(form.Input);
-                    writer.Close();
-                    numberOfCountries++;
-                    rtbLog.Text = "Страна добавлена.\n" + rtbLog.Text;
-                }
+                StreamWriter writer = new StreamWriter(Path, true);
+                writer.WriteLine(form.Input);
+                writer.Close();
+                numberOfCountries++;
+                rtbLog.Text = "Страна добавлена.\n" + rtbLog.Text;
             }
         }
 
@@ -131,7 +124,7 @@ namespace CourseWorkSort
                 int amount = form.Input;
                 numberOfCountries += amount;
 
-                StreamWriter writer = new StreamWriter(path, true);
+                StreamWriter writer = new StreamWriter(Path, true);
                 for (int i = 0; i < amount; i++)
                 {
                     Country country = new Country();
@@ -168,9 +161,9 @@ namespace CourseWorkSort
                 {
                     numberOfCountries--;
 
-                    string tmpFilename = initialDirectory + "\\tmp";
+                    string tmpFilename = InitialDirectory + "\\tmp";
                     StreamWriter writer = new StreamWriter(tmpFilename);
-                    StreamReader reader = new StreamReader(path);
+                    StreamReader reader = new StreamReader(Path);
                     int index = form.Input - 1;
 
                     for (int i = 0; i < index; i++)
@@ -186,7 +179,7 @@ namespace CourseWorkSort
                     reader.Close();
                     writer.Close();
 
-                    File.Copy(tmpFilename, path, true);
+                    File.Copy(tmpFilename, Path, true);
                     File.Delete(tmpFilename);
                     
                     rtbLog.Text = "Страна с индексом " + form.Input.ToString() +
@@ -198,9 +191,9 @@ namespace CourseWorkSort
         // нажание на кнопку меню "Отсортировать"
         private void SortToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int first = path.LastIndexOf('\\') + 1;
-            int last = path.LastIndexOf('.') - 1;
-            string input = path.Substring(first, last - first + 1);
+            int first = Path.LastIndexOf('\\') + 1;
+            int last = Path.LastIndexOf('.') - 1;
+            string input = Path.Substring(first, last - first + 1);
             FormInputSortInformation form = new FormInputSortInformation(input);
             form.ShowDialog();
 
@@ -208,7 +201,9 @@ namespace CourseWorkSort
             if (form.DialogResult == DialogResult.OK && (!File.Exists(outputPath) ||
                 IsConfirm("Файл \"" + outputPath + "\" существует. Перезаписать?")))
             {
-                // сортировка
+                string Output = InitialDirectory + '\\' + form.OutputFilename;
+                ExternalSorting Sorting = new ExternalSorting();
+                Sorting.Sort(Path, Output, form.NumberOfWays, form.IsBalanced);
                 rtbLog.Text = "Файл отсортирован и сохранён.\n" + rtbLog.Text;
             }
             else
@@ -217,5 +212,30 @@ namespace CourseWorkSort
             }
         }
 
+        private void слToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StreamReader reader = new StreamReader(Path);
+            bool result = true;
+            string info = reader.ReadLine();
+            if (info == null)
+            {
+                MessageBox.Show("++++++++++++");
+                return;
+            }
+            Country prev = new Country(info);
+            info = reader.ReadLine();
+            while (result && info != null)
+            {
+                Country tmp = new Country(info);
+                result = prev.CompareTo(tmp) <= 0;
+                info = reader.ReadLine();
+                prev = tmp;
+            }
+            if (result)
+                MessageBox.Show("++++++++++++");
+            else
+                MessageBox.Show("------------");
+            reader.Close();
+        }
     }
 }

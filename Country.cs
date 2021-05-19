@@ -24,9 +24,10 @@ namespace CourseWorkSort
             info = info.Where(x => x != "").ToArray();
             name = info[0];
             capital = info[1];
-            area = Convert.ToInt32(info[2]);
-            population = Convert.ToInt32(info[3]);
-            continent = info[4];
+            continent = info[2];
+            area = Convert.ToInt32(info[3]);
+            population = Convert.ToInt32(info[4]);
+            
         }
 
 
@@ -133,18 +134,12 @@ namespace CourseWorkSort
             int length = minLength + rnd.Next(maxLength - minLength + 1);
             string result = "";
 
-            int k = rnd.Next(33);
-            if (k == 32)
-                result += "Ё";
-            else
+            int k = rnd.Next(32);
                 result += (char)('А' + k);
 
             for (int i = 1; i < length; i++)
             {
-                k = rnd.Next(33);
-                if (k == 32)
-                    result += "ё";
-                else
+                k = rnd.Next(32);
                     result += (char)('а' + k);
             }
             return result;

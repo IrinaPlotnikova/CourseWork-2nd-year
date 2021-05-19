@@ -59,7 +59,7 @@ namespace CourseWorkSort
             // 
             this.lblContinent.AutoSize = true;
             this.lblContinent.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblContinent.Location = new System.Drawing.Point(13, 220);
+            this.lblContinent.Location = new System.Drawing.Point(13, 223);
             this.lblContinent.Name = "lblContinent";
             this.lblContinent.Size = new System.Drawing.Size(114, 25);
             this.lblContinent.TabIndex = 1;
@@ -160,7 +160,7 @@ namespace CourseWorkSort
             this.dudContinent.Items.Add("Евразия");
             this.dudContinent.Items.Add("Северная_Америка");
             this.dudContinent.Items.Add("Южная_Америка");
-            this.dudContinent.Location = new System.Drawing.Point(144, 225);
+            this.dudContinent.Location = new System.Drawing.Point(144, 221);
             this.dudContinent.Name = "dudContinent";
             this.dudContinent.ReadOnly = true;
             this.dudContinent.Size = new System.Drawing.Size(370, 30);

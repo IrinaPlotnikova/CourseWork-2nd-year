@@ -44,16 +44,19 @@ namespace CourseWorkSort
             this.gbxLog = new System.Windows.Forms.GroupBox();
             this.rtbLog = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.слToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.gbxLog.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem,
-            this.SortToolStripMenuItem});
+            this.SortToolStripMenuItem,
+            this.слToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(950, 36);
@@ -74,14 +77,18 @@ namespace CourseWorkSort
             // CreateToolStripMenuItem
             // 
             this.CreateToolStripMenuItem.Name = "CreateToolStripMenuItem";
-            this.CreateToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
+            this.CreateToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+N";
+            this.CreateToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.CreateToolStripMenuItem.Size = new System.Drawing.Size(255, 32);
             this.CreateToolStripMenuItem.Text = "Создать..";
             this.CreateToolStripMenuItem.Click += new System.EventHandler(this.CreateToolStripMenuItem_Click);
             // 
             // OpenToolStripMenuItem
             // 
             this.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem";
-            this.OpenToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
+            this.OpenToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+O";
+            this.OpenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.OpenToolStripMenuItem.Size = new System.Drawing.Size(255, 32);
             this.OpenToolStripMenuItem.Text = "Открыть..";
             this.OpenToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
@@ -92,7 +99,7 @@ namespace CourseWorkSort
             this.DeleteToolStripMenuItem});
             this.ChangeToolStripMenuItem.Enabled = false;
             this.ChangeToolStripMenuItem.Name = "ChangeToolStripMenuItem";
-            this.ChangeToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
+            this.ChangeToolStripMenuItem.Size = new System.Drawing.Size(255, 32);
             this.ChangeToolStripMenuItem.Text = "Изменить";
             // 
             // добавитьToolStripMenuItem
@@ -102,25 +109,31 @@ namespace CourseWorkSort
             this.InputCountryToolStripMenuItem});
             this.добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
             this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
-            this.добавитьToolStripMenuItem.Text = "Добавить..";
+            this.добавитьToolStripMenuItem.Text = "Добавить";
             // 
             // AddRandomCountryToolStripMenuItem
             // 
             this.AddRandomCountryToolStripMenuItem.Name = "AddRandomCountryToolStripMenuItem";
-            this.AddRandomCountryToolStripMenuItem.Size = new System.Drawing.Size(298, 32);
+            this.AddRandomCountryToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+Q";
+            this.AddRandomCountryToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+            this.AddRandomCountryToolStripMenuItem.Size = new System.Drawing.Size(370, 32);
             this.AddRandomCountryToolStripMenuItem.Text = "Случайным образом..";
             this.AddRandomCountryToolStripMenuItem.Click += new System.EventHandler(this.AddRandomCountryToolStripMenuItem_Click);
             // 
             // InputCountryToolStripMenuItem
             // 
             this.InputCountryToolStripMenuItem.Name = "InputCountryToolStripMenuItem";
-            this.InputCountryToolStripMenuItem.Size = new System.Drawing.Size(298, 32);
+            this.InputCountryToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+A";
+            this.InputCountryToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.InputCountryToolStripMenuItem.Size = new System.Drawing.Size(370, 32);
             this.InputCountryToolStripMenuItem.Text = "Через ввод..";
             this.InputCountryToolStripMenuItem.Click += new System.EventHandler(this.InputCountryToolStripMenuItem_Click);
             // 
             // DeleteToolStripMenuItem
             // 
             this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
+            this.DeleteToolStripMenuItem.ShortcutKeyDisplayString = "Del";
+            this.DeleteToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
             this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
             this.DeleteToolStripMenuItem.Text = "Удалить..";
             this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
@@ -130,6 +143,8 @@ namespace CourseWorkSort
             this.SortToolStripMenuItem.Enabled = false;
             this.SortToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.SortToolStripMenuItem.Name = "SortToolStripMenuItem";
+            this.SortToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+S";
+            this.SortToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.SortToolStripMenuItem.Size = new System.Drawing.Size(165, 32);
             this.SortToolStripMenuItem.Text = "Отсортировать";
             this.SortToolStripMenuItem.Click += new System.EventHandler(this.SortToolStripMenuItem_Click);
@@ -171,7 +186,14 @@ namespace CourseWorkSort
             this.groupBox2.Size = new System.Drawing.Size(926, 283);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Основные действия";
+            this.groupBox2.Text = "Информация о сортировке";
+            // 
+            // слToolStripMenuItem
+            // 
+            this.слToolStripMenuItem.Name = "слToolStripMenuItem";
+            this.слToolStripMenuItem.Size = new System.Drawing.Size(38, 32);
+            this.слToolStripMenuItem.Text = "сл";
+            this.слToolStripMenuItem.Click += new System.EventHandler(this.слToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -211,6 +233,7 @@ namespace CourseWorkSort
         private System.Windows.Forms.RichTextBox rtbLog;
         private System.Windows.Forms.ToolStripMenuItem AddRandomCountryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem InputCountryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem слToolStripMenuItem;
     }
 }
 

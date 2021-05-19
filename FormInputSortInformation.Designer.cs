@@ -160,6 +160,7 @@ namespace CourseWorkSort
             this.TbxInput.Name = "TbxInput";
             this.TbxInput.Size = new System.Drawing.Size(190, 30);
             this.TbxInput.TabIndex = 1;
+            this.TbxInput.TabStop = false;
             // 
             // btnCancel
             // 
@@ -208,8 +209,10 @@ namespace CourseWorkSort
             // 
             // FormInputSortInformation
             // 
+            this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(432, 308);
             this.Controls.Add(this.PnlInformation);
             this.Controls.Add(this.btnCancel);

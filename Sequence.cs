@@ -52,7 +52,7 @@ namespace CourseWorkSort
             string info = reader.ReadLine();
             if (info != null)
                 LastElement = new Country(info);
-            EOF = LastElement != null;
+            EOF = LastElement == null;
             EOS = EOF;
             return true;
         }
@@ -63,7 +63,7 @@ namespace CourseWorkSort
             if (reader == null)
                 return false;
             string info = reader.ReadLine();
-            if (info != null)
+            if (info != null && info != "")
             {
                 Country tmp = LastElement;
                 LastElement = new Country(info);
