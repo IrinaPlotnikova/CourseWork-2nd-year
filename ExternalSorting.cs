@@ -9,131 +9,130 @@ namespace CourseWorkSort
 {
     class ExternalSorting
     {
+        private int NumberOfWays;   // количество путей, используемых для слияния (>= 2)
+        private Sequence[,] Sequences;       // последовательности с сериями
+
+        public ExternalSorting(int numberOfWays)
+        {
+            NumberOfWays = Math.Max(numberOfWays, 2);
+
+            Sequences = new Sequence[2, NumberOfWays];
+            SetFilenamesForSequences();
+        }
+
         // сортировка естественным многопутевым однофазным слиянием
         // Input — корректное название файла, который необходимо отсортировать
         // Output — корректное название файла, в котором сохраняются отсортированные данные
-        // NumberOfWays — количество путей, используемых для слияния (>= 2)
         // IsBalanced — является ли сортировка сбалансированной
-        public void Sort(string Input, string Output, int NumberOfWays, bool IsBalanced)
+        public void Sort(string Input, string Output, bool IsBalanced)
         {
-            Sequence[,] Sequences = new Sequence[2, NumberOfWays];
-            CreateAuxiliaryFiles(NumberOfWays);
-            SetFilenamesForSequences(ref Sequences, NumberOfWays);
+            CreateAuxiliaryFiles();
             Sequences[0, 0].Filename = Input;
 
-            int NumberOfSerieses;
+            int NumberOfSerieses; 
             int IndexFrom = 0;
             if (IsBalanced)
-                NumberOfSerieses = SortPhaseBalanced(ref Sequences, IndexFrom, NumberOfWays);
+                NumberOfSerieses = SortPhaseBalanced(IndexFrom);
             else
-                NumberOfSerieses = SortPhaseNotBalanced(ref Sequences, IndexFrom, NumberOfWays);
-            if (NumberOfSerieses > 1)
+                NumberOfSerieses = SortPhaseNotBalanced(IndexFrom);
+
+            if (NumberOfSerieses > 1) // если файл не отсортирован
             {
                 Sequences[0, 0].Filename = "0";
-                while (NumberOfSerieses > 1)
+                while (NumberOfSerieses > 1) // пока файл не отсортирован
                 {
                     IndexFrom = IndexFrom ^ 1; // первый индекс последовательностей для слияния
                     if (IsBalanced)
-                        NumberOfSerieses = SortPhaseBalanced(ref Sequences, IndexFrom, NumberOfWays);
+                        NumberOfSerieses = SortPhaseBalanced(IndexFrom);
                     else
-                        NumberOfSerieses = SortPhaseNotBalanced(ref Sequences, IndexFrom, NumberOfWays);
+                        NumberOfSerieses = SortPhaseNotBalanced(IndexFrom);
                 }
             }
+
             File.Copy(Sequences[IndexFrom ^ 1, 0].Filename, Output, true);
-            DeleteAuxiliaryFiles(NumberOfWays);
+            DeleteAuxiliaryFiles();
         }
 
 
         // фаза сортировки (несбалансированная сортировка)
-        // Sequences — последовательности с сериями
         // IndexFrom — индекс, по которому находятся последовательности, серии из которых необходио слить
-        // NumberOfWays — количество путей, используемых для слияния
         // возвращает количество серий, в которые удалось слить последовательности
-        private int SortPhaseNotBalanced(ref Sequence[,] Sequences, int IndexFrom, int NumberOfWays)
+        private int SortPhaseNotBalanced(int IndexFrom)
         {
-            OpenSequences(ref Sequences, IndexFrom, NumberOfWays);
+            OpenSequences(IndexFrom);  
 
-            int NumberOfSequences = 0;
-            while (NumberOfSequences < NumberOfWays && !Sequences[IndexFrom, NumberOfSequences].EOF)
-                NumberOfSequences++;
+            int NumberOfSequences = GetNumberOfSequences(IndexFrom);
 
             // индексы, в которых есть последовательности в Sequences
-            int[] Indices = new int[NumberOfWays];
-            for (int i = 0; i < NumberOfWays; i++)
+            int[] Indices = new int[NumberOfSequences];
+            for (int i = 0; i < NumberOfSequences; i++)
                 Indices[i] = i;
 
             int NextSeriesNumber = 0; // номер следующей слитой серии
             while (NumberOfSequences != 0)
             {
                 int ResultIndex = NextSeriesNumber % NumberOfWays;
-                Merge(ref Sequences, IndexFrom, ResultIndex, ref Indices, ref NumberOfSequences);
+                Merge(IndexFrom, ResultIndex, ref Indices, ref NumberOfSequences);
                 NextSeriesNumber++;
             }
 
-            CloseSequences(ref Sequences, IndexFrom, NumberOfWays);
+            CloseSequences(IndexFrom);
 
             return NextSeriesNumber;
         }
 
         // фаза сортировки (сбалансированная сортировка)
-        // Sequences — последовательности с сериями
         // IndexFrom — индекс, по которому находятся последовательности, серии из которых необходио слить
-        // NumberOfWays — количество путей, используемых для слияния
-        // Indices — индексы, в которых есть последовательности в Sequences
         // возвращает количество серий, в которые удалось слить последовательности
-        private int SortPhaseBalanced(ref Sequence[,] Sequences, int IndexFrom, int NumberOfWays)
+        private int SortPhaseBalanced(int IndexFrom)
         {
-            OpenSequences(ref Sequences, IndexFrom, NumberOfWays);
+            OpenSequences(IndexFrom);
 
-            int NumberOfSequences = 0;
-            while (NumberOfSequences < NumberOfWays && !Sequences[IndexFrom, NumberOfSequences].EOF)
-                NumberOfSequences++;
-
+            int NumberOfSequences = GetNumberOfSequences(IndexFrom);
+           
             // индексы, в которых есть последовательности в Sequences
-            int[] Indices = new int[NumberOfWays];
-            for (int i = 0; i < NumberOfWays; i++)
+            int[] Indices = new int[NumberOfSequences];
+            for (int i = 0; i < NumberOfSequences; i++)
                 Indices[i] = i;
 
-            int NextSeriesIndex = 0; // номер следующей слитой серии
+            int NextSeriesNumber = 0; // номер следующей слитой серии
             while (NumberOfSequences > 0) // пока слиты не все последовательности
             {
-                int MinIndex = GetIndexOfMinElement(ref Sequences, IndexFrom, Indices, NumberOfSequences);
+                int MinIndex = GetIndexOfMinElement(IndexFrom, Indices, NumberOfSequences);
                 Country FirstElementInSeries = Sequences[IndexFrom, Indices[MinIndex]].LastElement;
 
-                int ResultIndex = NextSeriesIndex % NumberOfWays;
+                int ResultIndex = NextSeriesNumber % NumberOfWays;
 
-                // если серия продолжается
+                // если серия продолжается, то сливаем, не увеличивая число серий
                 if (IsSeriesContinues(Sequences[IndexFrom ^ 1, ResultIndex], FirstElementInSeries))
-                    Merge(ref Sequences, IndexFrom, ResultIndex, ref Indices, ref NumberOfSequences);
+                    Merge(IndexFrom, ResultIndex, ref Indices, ref NumberOfSequences);
 
                 if (NumberOfSequences > 0) // если слиты не все последовательности
                 {
-                    Merge(ref Sequences, IndexFrom, ResultIndex, ref Indices, ref NumberOfSequences);
-                    NextSeriesIndex++;
+                    Merge(IndexFrom, ResultIndex, ref Indices, ref NumberOfSequences);
+                    NextSeriesNumber++;
                 }
             }
 
-            CloseSequences(ref Sequences, IndexFrom, NumberOfWays);
+            CloseSequences(IndexFrom);
 
-            return NextSeriesIndex;
+            return NextSeriesNumber;
         }
 
 
-
         // слияние крайних серий в одну серию
-        // Sequences — последовательности с сериями
         // IndexFrom — индекс, по которому находятся последовательности, серии из которых необходио слить
         // IndexResult — индекс последовательности, в которую произойдет слияние. (IndexFrom ^ 1, IndexResult)
         // Indices — индексы, в которых есть последовательности в Sequences
-        // NumberOfSequences — количество последовательностей с сериями
-        private void Merge(ref Sequence[,] Sequences, int IndexFrom, int IndexResult, ref int[] Indices, ref int NumberOfSequences)
+        // NumberOfSequences — количество последовательностей с файлами
+        private void Merge(int IndexFrom, int IndexResult, ref int[] Indices, ref int NumberOfSequences)
         {
             int IndexTo = IndexFrom ^ 1;
             // количество последовательностей с незакончившейся серией
             int NumberOfActiveSequences = NumberOfSequences;
             while (NumberOfActiveSequences != 0)
             {
-                int MinIndex = GetIndexOfMinElement(ref Sequences, IndexFrom, Indices, NumberOfActiveSequences);
+                int MinIndex = GetIndexOfMinElement(IndexFrom, Indices, NumberOfActiveSequences);
                 // записываем минимальный элемент в серию
                 Sequences[IndexTo, IndexResult].Write(Sequences[IndexFrom, Indices[MinIndex]].LastElement);
                 // считываем следующий элемент в последовательности, из которой произошла запись
@@ -163,7 +162,7 @@ namespace CourseWorkSort
 
         // возвращает индекс из массива Indices, 
         // с помощью которого можно найти индекс последовательности с минимальным крайним элементом
-        private int GetIndexOfMinElement(ref Sequence[,] Sequences, int IndexFrom, int[] Indices, int NumberOfActiveSequences)
+        private int GetIndexOfMinElement(int IndexFrom, int[] Indices, int NumberOfActiveSequences)
         {
             int result = 0;
             for (int i = 1; i < NumberOfActiveSequences; i++)
@@ -176,8 +175,9 @@ namespace CourseWorkSort
             return result;
         }
 
+
         // открытие последовательностей
-        private void OpenSequences(ref Sequence[,] Sequences, int IndexFrom, int NumberOfWays)
+        private void OpenSequences(int IndexFrom)
         {
             int IndexTo = IndexFrom ^ 1;
             for (int i = 0; i < NumberOfWays; i++)
@@ -190,8 +190,9 @@ namespace CourseWorkSort
             }
         }
 
+
         // закрытие последовательностей
-        private void CloseSequences(ref Sequence[,] Sequences, int IndexFrom, int NumberOfWays)
+        private void CloseSequences(int IndexFrom)
         {
             int IndexTo = IndexFrom ^ 1;
             for (int i = 0; i < NumberOfWays; i++)
@@ -205,11 +206,21 @@ namespace CourseWorkSort
         }
 
 
+        // возвращает число непустых последовательностей с первым индексом IndexFrom
+        private int GetNumberOfSequences(int IndexFrom)
+        {
+            int result = 0;
+            while (result < NumberOfWays && !Sequences[IndexFrom, result].EOF)
+                result++;
+            return result;
+        }
+
+
         // устанавлиет последовательностям названия файлов, с которыми они связаны
         // названия: "0", "1", ..., "2 * NumberOfWays - 1" без расширения "txt",
         // что позволит избежать перезаписи файлов, так как в программе
         // пользователь может создать / открыть только файлы с расщирением "txt"
-        private void SetFilenamesForSequences(ref Sequence[,] Sequences, int NumberOfWays)
+        private void SetFilenamesForSequences()
         {
             for (int i = 0; i < 2; i++)
             {
@@ -221,6 +232,8 @@ namespace CourseWorkSort
             }
         }
 
+
+        // является ли новая серия продолжением предыдущей
         private bool IsSeriesContinues(Sequence previos, Country current)
         {
             return previos.LastElement != null && previos.LastElement.CompareTo(current) <= 0;
@@ -231,7 +244,7 @@ namespace CourseWorkSort
         // названия: "0", "1", ..., "2 * NumberOfWays - 1" без расширения "txt"
         // что позволит избежать перезаписи файлов, так как в программе
         // пользователь может создать / открыть только файлы с расщирением "txt"
-        private void CreateAuxiliaryFiles(int NumberOfWays)
+        private void CreateAuxiliaryFiles()
         {
             for (int i = 0; i < 2 * NumberOfWays; i++)
             {
@@ -240,9 +253,10 @@ namespace CourseWorkSort
             }
         }
 
+
         // удаление вспомогательных файлов
         // названия: "0", "1", ..., "2 * NumberOfWays - 1" без расширения "txt"
-        private void DeleteAuxiliaryFiles(int NumberOfWays)
+        private void DeleteAuxiliaryFiles()
         {
             for (int i = 0; i < 2 * NumberOfWays; i++)
             {

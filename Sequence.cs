@@ -63,7 +63,7 @@ namespace CourseWorkSort
             if (reader == null)
                 return false;
             string info = reader.ReadLine();
-            if (info != null && info != "")
+            if (info != null)
             {
                 Country tmp = LastElement;
                 LastElement = new Country(info);

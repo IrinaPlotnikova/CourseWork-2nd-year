@@ -54,7 +54,6 @@ namespace CourseWorkSort
             this.nudAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.nudAmount.Location = new System.Drawing.Point(104, 18);
             this.nudAmount.Name = "nudAmount";
-            this.nudAmount.ReadOnly = true;
             this.nudAmount.Size = new System.Drawing.Size(223, 30);
             this.nudAmount.TabIndex = 1;
             // 
