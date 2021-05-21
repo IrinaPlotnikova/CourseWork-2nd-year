@@ -51,7 +51,7 @@ namespace CourseWorkSort
             {
                 FileStream file = File.Create(newPath);
                 file.Close();
-                rtbLog.Text = "Файл \"" + newPath + "\" создан.\n" + rtbLog.Text;
+                rtbLog.Text = "Файл \"" + form.Input + "\" создан.\n" + rtbLog.Text;
             }
             else // если отменено создание или перезапись
             {
@@ -66,8 +66,10 @@ namespace CourseWorkSort
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 Path = openFileDialog1.FileName;
-                rtbLog.Text = "Файл \"" + Path + "\" открыт.\n" + rtbLog.Text;
+                string tmp = Path.Substring(Path.LastIndexOf('\\') + 1);
+                rtbLog.Text = "Файл \"" + tmp + "\" открыт.\n" + rtbLog.Text;
                 StreamReader reader = new StreamReader(Path);
+
                 NumberOfCountries = 0;
                 while (reader.ReadLine() != null)
                     NumberOfCountries++;
@@ -75,11 +77,12 @@ namespace CourseWorkSort
                 int first = Path.LastIndexOf('\\') + 1;
                 string filename = Path.Substring(first);
 
-                lblFilename.Text = filename;
+                tbxFilename.Text = filename;
+                TbxSize.Text = NumberOfCountries.ToString();
 
-                SortToolStripMenuItem.Enabled = true;
+                SortToolStripMenuItem.Enabled = NumberOfCountries > 0;
+                DeleteToolStripMenuItem.Enabled = NumberOfCountries > 0;
                 ChangeToolStripMenuItem.Enabled = true;
-                DeleteToolStripMenuItem.Enabled = true;
                 AddRandomCountryToolStripMenuItem.Enabled = true;
                 InputCountryToolStripMenuItem.Enabled = true;
 
@@ -104,10 +107,15 @@ namespace CourseWorkSort
             }
             else
             {
+                NumberOfCountries++;
+                DeleteToolStripMenuItem.Enabled = true;
+                SortToolStripMenuItem.Enabled = true;
+                TbxSize.Text = NumberOfCountries.ToString();
+
                 StreamWriter writer = new StreamWriter(Path, true);
                 writer.WriteLine(form.Input);
                 writer.Close();
-                NumberOfCountries++;
+                
                 rtbLog.Text = "Страна добавлена.\n" + rtbLog.Text;
             }
         }
@@ -127,6 +135,9 @@ namespace CourseWorkSort
             {
                 int amount = form.Input;
                 NumberOfCountries += amount;
+                DeleteToolStripMenuItem.Enabled = true;
+                SortToolStripMenuItem.Enabled = true;
+                TbxSize.Text = NumberOfCountries.ToString();
 
                 StreamWriter writer = new StreamWriter(Path, true);
                 for (int i = 0; i < amount; i++)
@@ -146,49 +157,47 @@ namespace CourseWorkSort
         // удаление страны из файла по индексу
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (NumberOfCountries == 0)
+         
+            FormRemoveCountry form = new FormRemoveCountry(NumberOfCountries);
+            form.ShowDialog();
+
+            if (form.DialogResult == DialogResult.Cancel)
             {
-                rtbLog.Text = "Невозможно выполнить удаление. Файл пуст.\n" + rtbLog.Text;
+                rtbLog.Text = "Отмена удаления страны.\n" + rtbLog.Text;
             }
             else
             {
-                FormRemoveCountry form = new FormRemoveCountry(NumberOfCountries);
-                form.ShowDialog();
+                NumberOfCountries--;
+                DeleteToolStripMenuItem.Enabled = NumberOfCountries > 0;
+                SortToolStripMenuItem.Enabled = NumberOfCountries > 0;
+                TbxSize.Text = NumberOfCountries.ToString();
 
-                if (form.DialogResult == DialogResult.Cancel)
+                string tmpFilename = InitialDirectory + "\\tmp";
+                StreamWriter writer = new StreamWriter(tmpFilename);
+                StreamReader reader = new StreamReader(Path);
+                int index = form.Input - 1;
+
+                for (int i = 0; i < index; i++)
                 {
-                    rtbLog.Text = "Отмена удаления страны.\n" + rtbLog.Text;
+                    writer.WriteLine(reader.ReadLine());
                 }
-                else
+                reader.ReadLine(); // пропуск удаляемой страны
+                for (int i = index + 1; i < NumberOfCountries; i++)
                 {
-                    NumberOfCountries--;
-
-                    string tmpFilename = InitialDirectory + "\\tmp";
-                    StreamWriter writer = new StreamWriter(tmpFilename);
-                    StreamReader reader = new StreamReader(Path);
-                    int index = form.Input - 1;
-
-                    for (int i = 0; i < index; i++)
-                    {
-                        writer.WriteLine(reader.ReadLine());
-                    }
-                    reader.ReadLine(); // пропуск удаляемой страны
-                    for (int i = index + 1; i < NumberOfCountries; i++)
-                    {
-                        writer.WriteLine(reader.ReadLine());
-                    }
-
-                    reader.Close();
-                    writer.Close();
-
-                    File.Copy(tmpFilename, Path, true);
-                    File.Delete(tmpFilename);
-                    
-                    rtbLog.Text = "Страна с индексом " + form.Input.ToString() +
-                                  " удалена.\n" + rtbLog.Text;
+                    writer.WriteLine(reader.ReadLine());
                 }
+
+                reader.Close();
+                writer.Close();
+
+                File.Copy(tmpFilename, Path, true);
+                File.Delete(tmpFilename);
+
+                rtbLog.Text = "Страна с индексом " + form.Input.ToString() + " удалена.\n" + rtbLog.Text;
             }
+               
         }
+
 
         // нажание на кнопку меню "Отсортировать"
         private void SortToolStripMenuItem_Click(object sender, EventArgs e)
@@ -213,5 +222,6 @@ namespace CourseWorkSort
                 rtbLog.Text = "Отмена сортировка.\n" + rtbLog.Text;
             }
         }
+
     }
 }

@@ -22,8 +22,11 @@ namespace CourseWorkSort
             get => filename;
             set 
             {
-                CloseRead();
-                CloseWrite();
+                if (filename != null)
+                {
+                    CloseRead();
+                    CloseWrite();
+                }
                 filename = value;
             } 
         }
@@ -89,6 +92,8 @@ namespace CourseWorkSort
             return true;
         }
 
+
+        // добавление страны value в последовательность
         public bool Write(Country value)
         {
             if (writer == null)
